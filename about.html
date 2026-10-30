@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | DevSphere</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="{{ url_for('home') }}" class="logo">Dev<span>Sphere</span></a>
+
+        <div class="nav-links" id="navLinks">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('home', _anchor='articles') }}">Articles</a>
+            <a href="{{ url_for('about') }}" class="active">About</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+        </div>
+
+        <div class="nav-actions">
+            <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">☀</button>
+            <a href="{{ url_for('create_post') }}" class="primary-btn">Write Article +</a>
+            <button class="menu-btn" id="menuToggle" aria-label="Open menu">☰</button>
+        </div>
+    </nav>
+
+    <main class="about-page">
+        <section class="about-hero">
+            <span class="eyebrow">ABOUT DEVSHPERE</span>
+            <h1>Where developers <span>learn and grow.</span></h1>
+            <p>
+                DevSphere is a technical blogging platform created to make
+                technology easier to explore, understand and share.
+            </p>
+        </section>
+
+        <section class="about-content-section">
+            <div class="about-visual">
+                <div class="about-icon">{"</>"}</div>
+                <h2>Learn. Build. Share.</h2>
+                <p>One idea can inspire another developer.</p>
+            </div>
+
+            <div class="about-text">
+                <span class="eyebrow">OUR PURPOSE</span>
+                <h2>Technology knowledge should be shared.</h2>
+                <p>
+                    DevSphere brings programming concepts, development
+                    tutorials and technology ideas together in one place.
+                    Readers can explore articles, search topics and discover
+                    new areas of technology.
+                </p>
+                <p>
+                    Developers can also create, edit and manage their own
+                    articles through a simple blogging interface.
+                </p>
+            </div>
+        </section>
+
+        <section class="about-features">
+            <div class="section-heading">
+                <span class="eyebrow">WHAT WE OFFER</span>
+                <h2>Explore the platform</h2>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>Learn</h3>
+                    <p>Explore articles about programming and modern technology.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">✍️</div>
+                    <h3>Create</h3>
+                    <p>Write and publish technical articles with ease.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Grow</h3>
+                    <p>Discover new ideas and improve your technical knowledge.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-cta">
+            <h2>Ready to explore DevSphere?</h2>
+            <p>Discover articles or share your own technical knowledge.</p>
+            <a href="{{ url_for('home', _anchor='articles') }}" class="primary-btn">
+                Explore Articles →
+            </a>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>© 2026 DevSphere. Built for curious minds.</p>
+            <a href="{{ url_for('home') }}">Back to Home ↑</a>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,317 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DevSphere - Technical Blog Writing Series for Developers">
+    <title>DevSphere | Developer Knowledge Hub</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</head>
+
+<body>
+
+<header class="navbar">
+    <a href="{{ url_for('home') }}" class="logo">
+        &lt;/&gt; Dev<span>Sphere</span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="#articles">Articles</a>
+        <a href="{{ url_for('about') }}">About</a>
+        <a href="{{ url_for('contact') }}">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+        <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">☀️</button>
+        <a href="{{ url_for('create') }}" class="primary-btn">+ Write Blog</a>
+        <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation">☰</button>
+    </div>
+</header>
+
+<main>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="eyebrow">✦ THE DEVELOPER'S KNOWLEDGE HUB</span>
+
+            <h1>Learn. Build.<br><span>Innovate.</span></h1>
+
+            <p>
+                Explore technology, discover new ideas and improve
+                your coding skills through technical articles
+                created for the next generation of developers.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#articles" class="primary-btn">Explore Articles →</a>
+                <a href="{{ url_for('about') }}" class="secondary-btn">About Us</a>
+            </div>
+
+            <div class="hero-stats">
+                <div>
+                    <strong>{{ total_posts }}+</strong>
+                    <small>Articles</small>
+                </div>
+                <div>
+                    <strong>4</strong>
+                    <small>Categories</small>
+                </div>
+                <div>
+                    <strong>100%</strong>
+                    <small>Learning Focus</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="code-window">
+                <div class="window-top">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <small>developer.py</small>
+                </div>
+
+                <pre><code><span class="code-purple">class</span> Developer:
+
+    <span class="code-purple">def</span> __init__(self):
+        self.skills = [
+            <span class="code-green">"Python"</span>,
+            <span class="code-green">"Java"</span>,
+            <span class="code-green">"AI & ML"</span>
+        ]
+
+        self.learning = <span class="code-orange">True</span>
+
+    <span class="code-purple">def</span> build_future(self):
+        <span class="code-purple">return</span> <span class="code-green">"Keep Learning!"</span></code></pre>
+
+                <div class="code-footer">● System Ready <span>Python 3</span></div>
+            </div>
+
+            <div class="floating-tag tag-one">🚀 Innovation</div>
+            <div class="floating-tag tag-two">💡 Knowledge</div>
+        </div>
+    </section>
+
+
+    <!-- CATEGORIES -->
+    <section class="categories">
+        <div class="section-heading">
+            <span class="eyebrow">EXPLORE BY TOPIC</span>
+            <h2>Discover Your <span>Interest</span></h2>
+        </div>
+
+        <div class="category-grid">
+
+            {% for category in categories %}
+            <a href="{{ url_for('home', category=category) }}"
+               class="category-card">
+
+                {% if category == "Java" %}
+                    <span>☕</span>
+                {% elif category == "Python" %}
+                    <span>🐍</span>
+                {% elif category == "Artificial Intelligence" %}
+                    <span>🤖</span>
+                {% else %}
+                    <span>🌐</span>
+                {% endif %}
+
+                <strong>{{ category }}</strong>
+                <small>Explore Articles</small>
+            </a>
+            {% endfor %}
+
+        </div>
+    </section>
+
+
+    <!-- BLOG ARTICLES -->
+    <section class="articles-section" id="articles">
+
+        <div class="section-heading article-heading">
+
+            <div>
+                <span class="eyebrow">THE KNOWLEDGE LIBRARY</span>
+                <h2>Latest <span>Articles</span></h2>
+                <p>Practical insights and ideas to help you grow as a developer.</p>
+            </div>
+
+            <form class="search-box" action="{{ url_for('home') }}" method="GET">
+                <span>⌕</span>
+                <input
+                    type="search"
+                    name="search"
+                    placeholder="Search articles..."
+                    value="{{ search_query }}"
+                >
+                <button type="submit">Search</button>
+            </form>
+
+        </div>
+
+
+        <!-- CATEGORY FILTERS -->
+        <div class="filter-buttons">
+
+            <a href="{{ url_for('home') }}"
+               class="filter-btn {% if not selected_category and not search_query %}active{% endif %}">
+                All Articles
+            </a>
+
+            {% for category in categories %}
+            <a href="{{ url_for('home', category=category) }}"
+               class="filter-btn {% if selected_category == category %}active{% endif %}">
+                {{ category }}
+            </a>
+            {% endfor %}
+
+        </div>
+
+
+        <!-- ARTICLE CARDS -->
+        <div class="article-grid">
+
+            {% for post in posts %}
+
+            <article class="article-card">
+
+                <div class="article-image">
+                    {% if post['category'] == 'Java' %}
+                        ☕
+                    {% elif post['category'] == 'Python' %}
+                        🐍
+                    {% elif post['category'] == 'Artificial Intelligence' %}
+                        🤖
+                    {% else %}
+                        🌐
+                    {% endif %}
+                </div>
+
+                <div class="article-content">
+
+                    <span class="article-category">
+                        {{ post['category'] }}
+                    </span>
+
+                    <h3>{{ post['title'] }}</h3>
+
+                    <p>{{ post['excerpt'] }}</p>
+
+                    <div class="article-meta">
+                        <span>By {{ post['author'] }}</span>
+                        <span>{{ post['created_at'][:10] }}</span>
+                    </div>
+
+                    <a href="{{ url_for('article', post_id=post['id']) }}"
+                       class="read-more">
+                        Read Article →
+                    </a>
+
+                </div>
+            </article>
+
+            {% else %}
+
+            <div class="empty-state">
+                <div>📚</div>
+                <h3>No articles found</h3>
+                <p>Be the first to share your technical knowledge!</p>
+                <a href="{{ url_for('create') }}" class="primary-btn">
+                    Write Your First Blog
+                </a>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT SECTION -->
+    <section class="about-section" id="about">
+
+        <div class="about-visual">
+            <div class="about-icon">💻</div>
+            <div class="about-label">CODE • CREATE • SHARE</div>
+        </div>
+
+        <div class="about-content">
+
+            <span class="eyebrow">WHO WE ARE</span>
+
+            <h2>Knowledge is better when <span>shared.</span></h2>
+
+            <p>
+                DevSphere is a technical blogging platform created
+                to make technology easier to understand.
+            </p>
+
+            <p>
+                Our goal is to help students, beginners and developers
+                explore programming, artificial intelligence and
+                emerging technologies.
+            </p>
+
+            <a href="{{ url_for('about') }}" class="primary-btn">
+                Discover More →
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- CALL TO ACTION -->
+    <section class="cta-section">
+
+        <span class="eyebrow">SHARE YOUR KNOWLEDGE</span>
+
+        <h2>Your Ideas Deserve <span>To Be Read.</span></h2>
+
+        <p>Turn your technical knowledge into meaningful articles.</p>
+
+        <a href="{{ url_for('create') }}" class="primary-btn">
+            Start Writing Today →
+        </a>
+
+    </section>
+
+</main>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+
+    <div class="footer-top">
+
+        <a href="{{ url_for('home') }}" class="logo">
+            &lt;/&gt; Dev<span>Sphere</span>
+        </a>
+
+        <p>Learn. Build. Innovate.</p>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        <p>© 2026 DevSphere. All rights reserved.</p>
+
+        <div>
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+        </div>
+
+    </div>
+
+</footer>
+
+</body>
+</html>
